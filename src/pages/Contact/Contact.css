@@ -1,0 +1,149 @@
+/* Novos estilos para a página de contato */
+.contact-content {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 3rem;
+  margin-bottom: 4rem;
+}
+
+.contact-methods {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.contact-method {
+  display: flex;
+  align-items: flex-start;
+  gap: 1rem;
+  padding: 1.5rem;
+  background: var(--white);
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+  transition: all 0.3s ease;
+}
+
+.contact-method:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+}
+
+.method-icon {
+  font-size: 2rem;
+  margin-top: 0.25rem;
+}
+
+.method-info h3 {
+  color: var(--secondary-color);
+  margin-bottom: 0.5rem;
+  font-size: 1.2rem;
+}
+
+.method-info p {
+  color: var(--text-color);
+  font-weight: 600;
+  margin-bottom: 0.25rem;
+  font-size: 1.1rem;
+}
+
+.method-info span {
+  color: var(--gray-dark);
+  font-size: 0.9rem;
+}
+
+.business-hours {
+  background: var(--gray-light);
+  padding: 1.5rem;
+  border-radius: 12px;
+  margin-top: 2rem;
+}
+
+.business-hours h3 {
+  color: var(--secondary-color);
+  margin-bottom: 1rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.hours-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.hour-item {
+  display: flex;
+  justify-content: space-between;
+  padding: 0.5rem 0;
+  border-bottom: 1px solid rgba(0,0,0,0.1);
+}
+
+.hour-item:last-child {
+  border-bottom: none;
+}
+
+/* Seção do Mapa */
+.map-section {
+  margin-top: 4rem;
+}
+
+.map-container {
+  border-radius: 15px;
+  overflow: hidden;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+}
+
+/* Formulário de Contato Atualizado */
+.contact-form-section {
+  background: var(--white);
+  padding: 2rem;
+  border-radius: 16px;
+  box-shadow: 0 8px 30px rgba(0,0,0,0.1);
+}
+
+.contact-form-section h2 {
+  color: var(--secondary-color);
+  margin-bottom: 2rem;
+  font-size: 1.5rem;
+}
+
+.contact-form select {
+  border-radius: 8px;
+  border: 2px solid var(--gray-light);
+  transition: all 0.3s ease;
+}
+
+.contact-form select:focus {
+  border-color: var(--primary-color);
+  box-shadow: 0 0 0 3px rgba(211, 47, 47, 0.1);
+  outline: none;
+}
+
+.contact-form select:hover {
+  border-color: var(--primary-color);
+}
+
+/* Responsividade para Contato */
+@media (max-width: 768px) {
+  .contact-content {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+  
+  .contact-method {
+    padding: 1rem;
+  }
+  
+  .method-icon {
+    font-size: 1.5rem;
+  }
+  
+  .contact-form-section {
+    padding: 1.5rem;
+  }
+  
+  .map-container iframe {
+    height: 300px;
+  }
+}

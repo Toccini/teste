@@ -1,0 +1,259 @@
+/* Adicione estas classes */
+.page-header {
+  text-align: center;
+  margin-bottom: 3rem;
+  padding: 2rem 0;
+}
+
+.page-title {
+  font-size: 3rem;
+  font-weight: 700;
+  color: var(--secondary-color);
+  margin-bottom: 1rem;
+  background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.page-subtitle {
+  font-size: 1.2rem;
+  color: var(--gray-dark);
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.gradient-title {
+  font-size: 2.5rem;
+  font-weight: 700;
+  background: linear-gradient(135deg, var(--primary-color), #c0392b);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  text-align: center;
+  margin-bottom: 1rem;
+}
+
+.gradient-subtitle {
+  font-size: 1.2rem;
+  color: var(--gray-dark);
+  text-align: center;
+  max-width: 600px;
+  margin: 0 auto 3rem;
+}
+
+.section-title {
+  font-size: 2.2rem;
+  font-weight: 600;
+  background: linear-gradient(135deg, var(--primary-color), #c0392b);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  text-align: center;
+  margin-bottom: 3rem;
+  position: relative;
+}
+
+.section-title::after {
+  content: '';
+  position: absolute;
+  bottom: -10px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 60px;
+  height: 3px;
+  background: linear-gradient(135deg, var(--primary-color), #c0392b);
+  border-radius: 2px;
+}
+
+select {
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23d32f2f' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
+  background-repeat: no-repeat;
+  background-position: right 1rem center;
+  background-size: 1em;
+  padding-right: 2.5rem;
+  cursor: pointer;
+  border: 2px solid var(--gray-light);
+  border-radius: 8px;
+  padding: 0.875rem 1rem;
+  font-size: 1rem;
+  background-color: var(--white);
+  color: var(--text-color);
+  transition: all 0.3s ease;
+  font-family: inherit;
+  position: relative;
+  z-index: 1;
+}
+
+/* Remove a seta padrão do IE */
+select::-ms-expand {
+  display: none;
+}
+
+/* Estados do select */
+select:focus {
+  outline: none;
+  border-color: var(--primary-color);
+  box-shadow: 0 0 0 3px rgba(211, 47, 47, 0.1);
+}
+
+select:hover {
+  border-color: var(--primary-color);
+}
+
+/* ========== TENTATIVA DE ESTILIZAR O DROPDOWN ========== */
+
+/* Para Chrome/Safari - estilização limitada */
+select option {
+  background: var(--white) !important;
+  color: var(--text-color) !important;
+  padding: 12px 16px !important;
+  font-size: 0.95rem !important;
+  border-bottom: 1px solid var(--gray-light) !important;
+  margin: 2px 0 !important;
+}
+
+/* Primeira option */
+select option:first-child {
+  border-radius: 6px 6px 0 0 !important;
+}
+
+/* Última option */
+select option:last-child {
+  border-bottom: none !important;
+  border-radius: 0 0 6px 6px !important;
+}
+
+/* Option selecionada */
+select option:checked,
+select option:focus {
+  background: linear-gradient(135deg, var(--primary-color), #c0392b) !important;
+  color: #c0392b !important;
+  font-weight: 600 !important;
+}
+
+/* Hover nas options (funciona em alguns navegadores) */
+select option:hover {
+  background: linear-gradient(135deg, var(--primary-color), #c0392b) !important;
+  color: #c0392b !important;
+}
+
+/* ========== SOLUÇÃO ALTERNATIVA: SELECT CUSTOMIZADO ========== */
+
+/* Container para select customizado */
+.custom-select-container {
+  position: relative;
+  width: 100%;
+}
+
+.custom-select {
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  width: 100%;
+  padding: 0.875rem 1rem;
+  border: 2px solid var(--gray-light);
+  border-radius: 8px;
+  font-size: 1rem;
+  background-color: var(--white);
+  color: var(--text-color);
+  cursor: pointer;
+  padding-right: 2.5rem;
+  transition: all 0.3s ease;
+}
+
+.custom-select:focus {
+  outline: none;
+  border-color: var(--primary-color);
+  box-shadow: 0 0 0 3px rgba(211, 47, 47, 0.1);
+}
+
+.custom-select-arrow {
+  position: absolute;
+  right: 1rem;
+  top: 50%;
+  transform: translateY(-50%);
+  pointer-events: none;
+  color: var(--primary-color);
+  font-size: 0.875rem;
+}
+
+/* Para Firefox - algumas melhorias */
+@-moz-document url-prefix() {
+  select {
+    text-indent: 0.01px;
+    text-overflow: '';
+    background-color: var(--white);
+  }
+  
+  select option {
+    background-color: var(--white);
+    color: var(--text-color);
+  }
+  
+  select option:checked {
+    background-color: var(--primary-color) !important;
+    color: white !important;
+  }
+}
+
+/* Para o select do Hero também */
+.search-filters select {
+  border-radius: 8px;
+  border: 2px solid var(--gray-light);
+}
+
+.search-filters select:focus {
+  border-color: var(--primary-color);
+  outline: none;
+}
+
+@media screen and (-webkit-min-device-pixel-ratio: 0) {
+  select {
+    border-radius: 8px;
+    height: auto;
+    line-height: 1.5;
+  }
+  
+  select:focus {
+    border-radius: 8px 8px 0 0;
+  }
+  
+  select option {
+    padding: 12px 16px;
+    border-radius: 0;
+  }
+  
+  /* Tenta estilizar o dropdown container */
+  select:focus option {
+    background: var(--white);
+    border-radius: 0;
+  }
+}
+
+/* Melhoria para quando o select está aberto */
+select:active,
+select:focus {
+  border-color: var(--primary-color);
+  box-shadow: 0 0 0 3px rgba(211, 47, 47, 0.1);
+}
+
+/* Para Internet Explorer (caso precise) */
+@media all and (-ms-high-contrast: none), (-ms-high-contrast: active) {
+  select {
+    border-radius: 8px;
+    padding-right: 1rem;
+  }
+  
+  select::-ms-expand {
+    display: none;
+  }
+  
+  select::-ms-value {
+    background: transparent;
+    color: var(--text-color);
+  }
+}

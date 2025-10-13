@@ -1,0 +1,261 @@
+.autocomplete-container {
+  position: relative;
+  width: 100%;
+}
+
+.autocomplete-input-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.autocomplete-input {
+  width: 100%;
+  padding: 0.875rem 1rem;
+  border: 2px solid var(--gray-light);
+  border-radius: 8px;
+  font-size: 1rem;
+  background: var(--white);
+  color: var(--text-color);
+  transition: all 0.3s ease;
+  font-family: inherit;
+  padding-right: 2.5rem;
+}
+
+.autocomplete-input:focus {
+  outline: none;
+  border-color: var(--primary-color);
+  box-shadow: 0 0 0 3px rgba(211, 47, 47, 0.1);
+}
+
+.autocomplete-input:hover {
+  border-color: var(--primary-color);
+}
+
+.clear-button {
+  position: absolute;
+  right: 0.75rem;
+  background: none;
+  border: none;
+  color: var(--gray);
+  cursor: pointer;
+  padding: 0.25rem;
+  border-radius: 50%;
+  transition: all 0.3s ease;
+  font-size: 0.875rem;
+}
+
+.clear-button:hover {
+  color: var(--primary-color);
+  background: rgba(211, 47, 47, 0.1);
+}
+
+.suggestions-dropdown {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  background: var(--white);
+  border: 2px solid var(--primary-color);
+  border-radius: 8px;
+  box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+  z-index: 1000;
+  max-height: 200px;
+  overflow-y: auto;
+  margin-top: 0.25rem;
+}
+
+.suggestion-item {
+  padding: 0.75rem 1rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  border-bottom: 1px solid var(--gray-light);
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.suggestion-item:last-child {
+  border-bottom: none;
+}
+
+.suggestion-item:hover {
+  background: linear-gradient(135deg, var(--primary-color), #c0392b);
+  color: white;
+}
+
+.suggestion-item:hover .suggestion-icon {
+  filter: brightness(0) invert(1);
+}
+
+.suggestion-item.no-results {
+  cursor: default;
+  color: var(--gray-dark);
+  justify-content: center;
+}
+
+.suggestion-item.no-results:hover {
+  background: var(--white);
+  color: var(--gray-dark);
+}
+
+.suggestion-icon {
+  font-size: 0.875rem;
+  opacity: 0.7;
+}
+
+/* Scrollbar personalizada */
+.suggestions-dropdown::-webkit-scrollbar {
+  width: 6px;
+}
+
+.suggestions-dropdown::-webkit-scrollbar-track {
+  background: var(--gray-light);
+  border-radius: 3px;
+}
+
+.suggestions-dropdown::-webkit-scrollbar-thumb {
+  background: var(--primary-color);
+  border-radius: 3px;
+}
+
+.suggestions-dropdown::-webkit-scrollbar-thumb:hover {
+  background: #c0392b;
+}
+
+/* Estilos específicos para o Autocomplete no Hero */
+.hero .autocomplete-container {
+  position: relative;
+  width: 100%;
+}
+
+.hero .autocomplete-input-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.hero .autocomplete-input {
+  width: 100%;
+  padding: 12px 15px;
+  border: 2px solid var(--gray-light);
+  border-radius: 8px;
+  font-size: 1rem;
+  background: var(--white);
+  color: var(--text-color); /* ✅ Cor do texto corrigida */
+  transition: all 0.3s ease;
+  font-family: inherit;
+  padding-right: 2.5rem;
+}
+
+.hero .autocomplete-input:focus {
+  outline: none;
+  border-color: var(--primary-color);
+  box-shadow: 0 0 0 3px rgba(211, 47, 47, 0.1);
+}
+
+.hero .autocomplete-input:hover {
+  border-color: var(--primary-color);
+}
+
+.hero .autocomplete-input::placeholder {
+  color: var(--gray-dark); /* ✅ Placeholder com cor visível */
+}
+
+.hero .clear-button {
+  position: absolute;
+  right: 0.75rem;
+  background: none;
+  border: none;
+  color: var(--gray);
+  cursor: pointer;
+  padding: 0.25rem;
+  border-radius: 50%;
+  transition: all 0.3s ease;
+  font-size: 0.875rem;
+  width: 20px;
+  height: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.hero .clear-button:hover {
+  color: var(--primary-color);
+  background: rgba(211, 47, 47, 0.1);
+}
+
+/* Dropdown no Hero */
+.hero .suggestions-dropdown {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  background: var(--white);
+  border: 2px solid var(--primary-color);
+  border-radius: 8px;
+  box-shadow: 0 15px 35px rgba(0,0,0,0.15);
+  z-index: 1000;
+  max-height: 300px;
+  overflow-y: auto;
+  margin-top: 0.5rem;
+  animation: dropdownAppear 0.2s ease-out;
+}
+
+.hero .suggestion-item {
+  padding: 0.875rem 1rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  border-bottom: 1px solid var(--gray-light);
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  font-size: 0.95rem;
+  color: var(--text-color); /* ✅ Cor do texto corrigida */
+}
+
+.hero .suggestion-item:last-child {
+  border-bottom: none;
+}
+
+.hero .suggestion-item:hover {
+  background: linear-gradient(135deg, var(--primary-color), #c0392b);
+  color: white;
+  transform: translateX(4px);
+}
+
+.hero .suggestion-item:hover .suggestion-icon {
+  filter: brightness(0) invert(1);
+  transform: scale(1.1);
+}
+
+.hero .suggestion-item.no-results {
+  cursor: default;
+  color: var(--gray-dark);
+  justify-content: center;
+  font-style: italic;
+}
+
+.hero .suggestion-item.no-results:hover {
+  background: var(--white);
+  color: var(--gray-dark);
+  transform: none;
+}
+
+.hero .suggestion-icon {
+  font-size: 0.875rem;
+  opacity: 0.8;
+  transition: all 0.2s ease;
+}
+
+.hero .suggestions-count {
+  position: sticky;
+  top: 0;
+  background: var(--primary-color);
+  color: white;
+  padding: 0.5rem 1rem;
+  font-size: 0.8rem;
+  font-weight: 600;
+  text-align: center;
+  border-bottom: 1px solid rgba(255,255,255,0.2);
+}

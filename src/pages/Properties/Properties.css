@@ -1,0 +1,41 @@
+.properties-page {
+  padding: var(--spacing-xl) 0;
+  background: var(--background-color);
+  min-height: calc(100vh - 80px);
+  margin-top: 80px;
+}
+
+.page-header {
+  text-align: center;
+  margin-bottom: 3rem;
+  padding: 2rem 0;
+}
+
+.properties-count {
+  margin: var(--spacing-md) 0;
+  color: var(--gray-dark);
+  font-size: 1.1rem;
+  text-align: center;
+}
+
+.properties-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(340px, 1fr)); /* Aumentei o min */
+  gap: 24px;
+  justify-items: center;
+}
+
+.no-results {
+  grid-column: 1 / -1;
+  text-align: center;
+  padding: 3rem;
+  color: var(--gray-dark);
+  background: var(--card-bg);
+  border-radius: 12px;
+  border: 2px dashed var(--gray-light);
+}
+
+.no-results p {
+  margin: 0.5rem 0;
+  font-size: 1.1rem;
+}

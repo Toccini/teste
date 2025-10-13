@@ -1,0 +1,195 @@
+.property-card {
+  background: #ffffff;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  border: 1px solid #e9ecef;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  width: 100%;
+  max-width: 360px; /* Aumentei o card */
+  margin: 0 auto;
+}
+
+.property-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 4px 15px rgba(0,0,0,0.15);
+}
+
+.property-image-container {
+  position: relative;
+  height: 220px; /* Aumentei a imagem */
+  overflow: hidden;
+}
+
+.property-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.property-badges {
+  position: absolute;
+  top: 12px;
+  left: 12px;
+  right: 12px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.property-type {
+  background: #27ae60;
+  color: white;
+  padding: 4px 8px;
+  border-radius: 6px;
+  font-size: 0.7rem; /* Mantive pequeno */
+  font-weight: 600;
+}
+
+.property-type.rent {
+  background: #e67e22;
+}
+
+.property-price {
+  background: rgba(0,0,0,0.8);
+  color: white;
+  padding: 4px 8px;
+  border-radius: 6px;
+  font-size: 0.8rem; /* Mantive pequeno */
+  font-weight: 600;
+}
+
+.property-info {
+  padding: 20px; /* Aumentei o padding */
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+/* TÍTULO E ENDEREÇO - MANTENDO PEQUENOS MESMO COM CARD MAIOR */
+.property-title {
+  font-size: 0.9rem !important; /* FORÇADO a ficar pequeno */
+  font-weight: 600;
+  color: #2c3e50;
+  line-height: 1.3;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  margin: 0;
+  min-height: 2.3em;
+  max-height: 2.3em;
+}
+
+.property-address {
+  font-size: 0.75rem !important; /* FORÇADO a ficar pequeno */
+  color: #6c757d;
+  line-height: 1.3;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  margin: 0;
+  min-height: 1.9em;
+  max-height: 1.9em;
+}
+
+/* FEATURES E BOTÃO LADO A LADO */
+.property-bottom-section {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 16px; /* Aumentei o gap */
+  align-items: end;
+  margin-top: 8px;
+}
+
+.property-features {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px; /* Aumentei o gap */
+}
+
+.feature {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  flex: 1;
+}
+
+.feature-icon {
+  font-size: 1rem !important; /* Um pouquinho maior mas controlado */
+}
+
+.feature-text {
+  font-size: 0.7rem !important; /* Mantive pequeno */
+  color: #6c757d;
+  font-weight: 500;
+  text-align: center;
+}
+
+/* BOTÃO UM POUCO MAIOR */
+.property-button {
+  padding: 10px 20px; /* Aumentei um pouco */
+  background: #d32f2f;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  font-size: 0.8rem; /* Mantive pequeno */
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  white-space: nowrap;
+  min-width: 110px; /* Aumentei um pouco */
+  height: fit-content;
+}
+
+.property-button:hover {
+  background: #2c3e50;
+  transform: translateY(-1px);
+}
+
+/* Responsividade */
+@media (max-width: 768px) {
+  .property-card {
+    max-width: 320px; /* Um pouco menor no mobile */
+  }
+  
+  .property-image-container {
+    height: 200px;
+  }
+  
+  .property-info {
+    padding: 16px;
+    gap: 10px;
+  }
+  
+  .property-bottom-section {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+  
+  .property-button {
+    width: 100%;
+    order: -1;
+  }
+}
+
+/* REGRAS FORÇADAS PARA GARANTIR TAMANHOS PEQUENOS */
+.property-card h3.property-title {
+  font-size: 0.9rem !important;
+  line-height: 1.3 !important;
+}
+
+.property-card p.property-address {
+  font-size: 0.75rem !important;
+  line-height: 1.3 !important;
+}
+
+.property-card .feature-icon {
+  font-size: 1rem !important;
+}
+
+.property-card .feature-text {
+  font-size: 0.7rem !important;
+}

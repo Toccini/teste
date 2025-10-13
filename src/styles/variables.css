@@ -1,0 +1,28 @@
+:root {
+  /* Cores principais - baseado no site original */
+  --primary-color: #d32f2f;    /* Vermelho mais forte */
+  --secondary-color: #2c3e50;  /* Azul escuro */
+  --accent-color: #e74c3c;     /* Vermelho mais suave */
+  
+  /* Cores de fundo e cards */
+  --white: #ffffff;
+  --card-bg: #f8f9fa;          /* Fundo dos cards mais escuro */
+  --background-color: #f5f7fa; /* Fundo geral mais escuro */
+  
+  /* Cores de texto */
+  --text-color: #2c3e50;       /* Texto mais escuro */
+  --gray-light: #e9ecef;
+  --gray: #adb5bd;
+  --gray-dark: #6c757d;
+  
+  /* Fontes */
+  --font-primary: 'Arial', sans-serif;
+  --font-size-base: 16px;
+  
+  /* Espaçamentos */
+  --spacing-xs: 0.5rem;
+  --spacing-sm: 1rem;
+  --spacing-md: 1.5rem;
+  --spacing-lg: 2rem;
+  --spacing-xl: 3rem;
+}

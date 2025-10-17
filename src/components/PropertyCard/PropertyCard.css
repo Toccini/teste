@@ -68,7 +68,7 @@
 
 /* TÍTULO E ENDEREÇO - MANTENDO PEQUENOS MESMO COM CARD MAIOR */
 .property-title {
-  font-size: 0.9rem !important; /* FORÇADO a ficar pequeno */
+  font-size: 0.9rem; /* FORÇADO a ficar pequeno */
   font-weight: 600;
   color: #2c3e50;
   line-height: 1.3;
@@ -82,7 +82,7 @@
 }
 
 .property-address {
-  font-size: 0.75rem !important; /* FORÇADO a ficar pequeno */
+  font-size: 0.75rem; /* FORÇADO a ficar pequeno */
   color: #6c757d;
   line-height: 1.3;
   display: -webkit-box;

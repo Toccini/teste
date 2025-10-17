@@ -1,0 +1,48 @@
+body{
+            font-family: 'Poppins', sans-serif;
+            background-color: antiquewhite;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        .card{
+            background-color: brown;
+            border-radius: 20px;
+            box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            width: 300px;
+            text-align: center;
+        }
+        .card img{
+            width: 100%;
+            border-radius: 15px;
+        }
+        .card h2{
+            font-size: 1.2rem;
+            margin: 10px 0 5px;
+            color: white;
+        }
+        .card p{
+            font-size: 0.9rem;
+            color: white;
+        }
+        .price{
+            font-size: 1.1rem;
+            color: white;
+            margin: 10px 0;
+        }
+        .btn {
+            background-color: beige;
+            color: brown;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+        }
+        .like{
+            margin-top: 10px;
+            font-size: 1.2rem;
+            color: white;
+            cursor: pointer;
+        }

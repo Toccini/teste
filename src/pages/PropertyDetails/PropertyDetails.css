@@ -34,7 +34,7 @@
   font-weight: 500;
 }
 
-/* Galeria */
+/* Galeria - CORREÇÃO DAS IMAGENS GRANDES */
 .property-gallery {
   display: grid;
   grid-template-columns: 1fr 100px;
@@ -50,13 +50,14 @@
   position: relative;
   border-radius: 12px;
   overflow: hidden;
-  height: 500px;
+  height: 500px; /* Altura fixa */
 }
 
 .active-image {
   width: 100%;
   height: 100%;
-  object-fit: cover;
+  object-fit: cover; /* Garante que a imagem cubra o espaço */
+  object-position: center; /* Centraliza a imagem */
   border-radius: 12px;
 }
 
@@ -67,6 +68,7 @@
   display: flex;
   flex-direction: column;
   gap: 0.5rem;
+  z-index: 2;
 }
 
 .property-badge {
@@ -78,16 +80,16 @@
   backdrop-filter: blur(10px);
 }
 
-.property-badge.operation.sale {
-  background: rgba(39, 174, 96, 0.9);
-}
-
-.property-badge.operation.rent {
-  background: rgba(230, 126, 34, 0.9);
+.property-badge.destaque {
+  background: rgba(245, 158, 11, 0.9);
 }
 
 .property-badge.price {
   background: rgba(0, 0, 0, 0.8);
+}
+
+.property-badge.type {
+  background: rgba(16, 185, 129, 0.9);
 }
 
 .image-thumbnails {
@@ -115,8 +117,11 @@
 .thumbnail img {
   width: 100%;
   height: 100%;
-  object-fit: cover;
+  object-fit: cover; /* Correção para thumbnails */
+  object-position: center;
 }
+
+/* Resto do CSS permanece igual... */
 
 /* Conteúdo Principal */
 .property-content {
@@ -255,8 +260,13 @@
   color: var(--secondary-color);
 }
 
-.status-available {
-  color: #27ae60;
+.status-disponivel {
+  color: #22c55e;
+  font-weight: 600;
+}
+
+.status-indisponivel {
+  color: #ef4444;
   font-weight: 600;
 }
 
@@ -316,6 +326,20 @@
   width: 100%;
   height: 100%;
   object-fit: cover;
+  object-position: center;
+}
+
+.agent-avatar-placeholder {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  background: #3b82f6;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-size: 24px;
+  font-weight: bold;
 }
 
 .agent-details h3 {
@@ -328,9 +352,13 @@
   color: var(--gray-dark);
 }
 
-.agent-rating {
-  color: #f39c12;
-  font-size: 0.9rem;
+.agent-contact {
+  font-size: 14px;
+  color: #6b7280;
+}
+
+.agent-contact div {
+  margin: 2px 0;
 }
 
 .contact-actions {
@@ -451,12 +479,19 @@
 .similar-image {
   position: relative;
   height: 200px;
+  overflow: hidden;
 }
 
 .similar-image img {
   width: 100%;
   height: 100%;
   object-fit: cover;
+  object-position: center;
+  transition: transform 0.3s ease;
+}
+
+.similar-card:hover .similar-image img {
+  transform: scale(1.05);
 }
 
 .similar-price {
@@ -531,6 +566,67 @@
   transform: translateY(-2px);
 }
 
+/* Badge de negócio */
+.property-badge.negocio {
+  background: var(--primary-color);
+  color: white;
+}
+
+.property-negocio-text {
+  font-size: 1rem;
+  color: var(--primary-color);
+  font-weight: 600;
+  margin-left: 0.5rem;
+}
+
+/* Estados de loading e error */
+.loading-state,
+.error-state {
+  text-align: center;
+  padding: 4rem 2rem;
+  min-height: 50vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.loading-spinner {
+  width: 50px;
+  height: 50px;
+  border: 4px solid var(--gray-light);
+  border-top: 4px solid var(--primary-color);
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  margin-bottom: 1rem;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.error-state h1 {
+  color: var(--secondary-color);
+  margin-bottom: 1rem;
+}
+
+.error-state p {
+  color: var(--gray-dark);
+  margin-bottom: 2rem;
+}
+
+.map-placeholder {
+  background: var(--card-bg);
+  height: 200px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  border-radius: 10px;
+  color: var(--gray-dark);
+}
+
 /* Responsividade */
 @media (max-width: 1200px) {
   .property-content {
@@ -551,6 +647,10 @@
   .thumbnail {
     width: 80px;
     height: 60px;
+  }
+  
+  .similar-grid {
+    grid-template-columns: repeat(2, 1fr);
   }
 }
 
@@ -612,5 +712,9 @@
   
   .feature-item {
     justify-content: flex-start;
+  }
+  
+  .similar-grid {
+    grid-template-columns: 1fr;
   }
 }

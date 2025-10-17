@@ -1,92 +1,99 @@
-import React, { useState } from 'react'
-import { useNavigate } from 'react-router-dom'
-import './Login.css'
+// src/pages/Login.jsx
+import React, { useState } from 'react';
+import { useAuth } from '../../hooks/useAuth';
+import './Login.css';
 
 const Login = () => {
-  const [formData, setFormData] = useState({
-    email: '',
-    password: ''
-  })
-  const [isLoading, setIsLoading] = useState(false)
-  const navigate = useNavigate()
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState('');
+  const [success, setSuccess] = useState('');
+  
+  const { user, signIn } = useAuth();
 
   const handleSubmit = async (e) => {
-    e.preventDefault()
-    setIsLoading(true)
-    
-    // Simulação de login
-    console.log('Tentando login:', formData)
-    
-    setTimeout(() => {
-      if (formData.email && formData.password) {
-        localStorage.setItem('isAuthenticated', 'true')
-        localStorage.setItem('userEmail', formData.email)
-        alert('Login realizado com sucesso!')
-        navigate('/admin') // ✅ CORRIGIDO: Redireciona para /admin
-      } else {
-        alert('Por favor, preencha todos os campos!')
-      }
-      setIsLoading(false)
-    }, 1000)
-  }
+    e.preventDefault();
+    setLoading(true);
+    setError('');
+    setSuccess('');
 
-  const handleChange = (e) => {
-    setFormData({
-      ...formData,
-      [e.target.name]: e.target.value
-    })
+    try {
+      console.log('Tentando login com:', email);
+      const { data, error } = await signIn(email, password);
+      
+      if (error) {
+        console.error('Erro no login:', error);
+        setError('Credenciais inválidas. Tente novamente.');
+        return;
+      }
+      
+      console.log('Login bem sucedido:', data);
+      setSuccess('Login realizado com sucesso! Redirecionando...');
+      
+      // Redirecionar após um breve delay
+      setTimeout(() => {
+        window.location.href = '/admin';
+      }, 2000);
+      
+    } catch (err) {
+      console.error('Erro catch:', err);
+      setError('Erro ao fazer login. Tente novamente.');
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  // Se já estiver logado, redireciona imediatamente
+  if (user) {
+    console.log('Usuário já logado, redirecionando...');
+    window.location.href = '/admin';
+    return null;
   }
 
   return (
-    <div className="login-page">
-      <div className="login-container">
-        <div className="login-card">
-          <h1>Área do Corretor</h1>
-          <p>Faça login para gerenciar os imóveis</p>
-          
-          <form onSubmit={handleSubmit} className="login-form">
-            <div className="input-group">
-              <label htmlFor="email">Email</label>
-              <input
-                type="email"
-                id="email"
-                name="email"
-                value={formData.email}
-                onChange={handleChange}
-                placeholder="seu@email.com"
-                required
-              />
-            </div>
-            
-            <div className="input-group">
-              <label htmlFor="password">Senha</label>
-              <input
-                type="password"
-                id="password"
-                name="password"
-                value={formData.password}
-                onChange={handleChange}
-                placeholder="Sua senha"
-                required
-              />
-            </div>
-            
-            <button 
-              type="submit" 
-              className="login-button"
-              disabled={isLoading}
-            >
-              {isLoading ? 'Entrando...' : 'Entrar'}
-            </button>
-          </form>
-
-          <div className="login-demo">
-            <p><strong>Dica:</strong> Use qualquer email e senha para testar</p>
+    <div className="login-container">
+      <div className="login-box">
+        <h2>Login Administrativo</h2>
+        <form onSubmit={handleSubmit}>
+          <div className="input-group">
+            <label>Email:</label>
+            <input
+              type="email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              required
+            />
           </div>
-        </div>
+          <div className="input-group">
+            <label>Senha:</label>
+            <input
+              type="password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              required
+            />
+          </div>
+          
+          {error && (
+            <div className="error-message">
+              {error}
+            </div>
+          )}
+          
+          {success && (
+            <div className="success-message">
+              {success}
+            </div>
+          )}
+          
+          <button type="submit" className="login-btn" disabled={loading}>
+            {loading ? 'Entrando...' : 'Entrar'}
+          </button>
+        </form>
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default Login
+export default Login;

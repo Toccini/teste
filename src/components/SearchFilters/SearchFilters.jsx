@@ -1,127 +1,112 @@
-import React, { useState } from 'react'
-import { allProperties } from '../../data/properties.js'
+import React, { useState, useEffect } from 'react'
 import Autocomplete from '../AutoComplete/AutoComplete.jsx'
+import { imoveisService } from '../../lib/supabase'
 import './SearchFilters.css'
 
-const SearchFilters = ({ onFilter }) => {
-  const [filters, setFilters] = useState({
-    type: '',
-    operation: '',
-    bedrooms: '',
-    minPrice: '',
-    maxPrice: '',
-    location: '' // ✅ Novo filtro de localização
-  })
+const SearchFilters = ({ filters, onFilterChange, onSearch, onClearFilters, loading = false }) => {
+  const [tipos, setTipos] = useState([])
+  const [cidades, setCidades] = useState([])
 
-  const handleFilterChange = (e) => {
-    const newFilters = {
-      ...filters,
-      [e.target.name]: e.target.value
+  useEffect(() => {
+    loadFilterOptions()
+  }, [])
+
+  const loadFilterOptions = async () => {
+    try {
+      const [tiposData, cidadesData] = await Promise.all([
+        imoveisService.getTiposImoveis(),
+        imoveisService.getCidades()
+      ])
+      setTipos(tiposData)
+      setCidades(cidadesData)
+    } catch (error) {
+      console.error('Erro ao carregar opções de filtro:', error)
     }
-    
-    setFilters(newFilters)
-    applyFilters(newFilters)
+  }
+
+  const handleFilterChange = (key, value) => {
+    onFilterChange({
+      ...filters,
+      [key]: value
+    })
   }
 
   const handleLocationSelect = (location) => {
-    const newFilters = {
+    onFilterChange({
       ...filters,
-      location: location
-    }
-    
-    setFilters(newFilters)
-    applyFilters(newFilters)
-  }
-
-  const applyFilters = (filterData) => {
-    const filtered = allProperties.filter(property => {
-      // Filtro por tipo
-      if (filterData.type && property.type !== filterData.type) return false
-      
-      // Filtro por operação (venda/aluguel)
-      if (filterData.operation && property.operation !== filterData.operation) return false
-      
-      // Filtro por quartos
-      if (filterData.bedrooms && property.bedrooms < parseInt(filterData.bedrooms)) return false
-      
-      // Filtro por preço mínimo
-      if (filterData.minPrice && property.price < parseInt(filterData.minPrice)) return false
-      
-      // Filtro por preço máximo
-      if (filterData.maxPrice && property.price > parseInt(filterData.maxPrice)) return false
-      
-      // ✅ Novo filtro por localização
-      if (filterData.location && !property.address.toLowerCase().includes(filterData.location.toLowerCase())) {
-        return false
-      }
-      
-      return true
+      bairro: location
     })
-    
-    onFilter(filtered)
   }
 
-  const clearFilters = () => {
-    const resetFilters = {
-      type: '',
-      operation: '',
-      bedrooms: '',
-      minPrice: '',
-      maxPrice: '',
-      location: ''
-    }
-    
-    setFilters(resetFilters)
-    onFilter(allProperties)
+  const handleSearch = () => {
+    onSearch()
+  }
+
+  const handleClearFilters = () => {
+    onClearFilters()
   }
 
   return (
     <div className="search-filters-component">
       <div className="filters-header">
         <h3>Filtrar Imóveis</h3>
-        <button type="button" className="clear-filters" onClick={clearFilters}>
-          Limpar Filtros
+        <button 
+          type="button" 
+          className="clear-filters" 
+          onClick={handleClearFilters}
+          disabled={loading}
+        >
+          🗑️ Limpar Filtros
         </button>
       </div>
       
       <div className="filters-grid">
         <div className="filter-group">
-          <label htmlFor="type">Tipo do Imóvel</label>
+          <label htmlFor="tipo">Tipo do Imóvel</label>
           <select 
-            id="type"
-            name="type" 
-            value={filters.type} 
-            onChange={handleFilterChange}
+            id="tipo"
+            name="tipo" 
+            value={filters.tipo} 
+            onChange={(e) => handleFilterChange('tipo', e.target.value)}
           >
             <option value="">Todos</option>
-            <option value="casa">Casa</option>
-            <option value="apartamento">Apartamento</option>
-            <option value="terreno">Terreno</option>
-            <option value="comercial">Comercial</option>
+            {tipos.map(tipo => (
+              <option key={tipo} value={tipo}>{tipo}</option>
+            ))}
           </select>
         </div>
 
         <div className="filter-group">
-          <label htmlFor="operation">Operação</label>
+          <label htmlFor="cidade">Cidade</label>
           <select 
-            id="operation"
-            name="operation" 
-            value={filters.operation} 
-            onChange={handleFilterChange}
+            id="cidade"
+            name="cidade" 
+            value={filters.cidade} 
+            onChange={(e) => handleFilterChange('cidade', e.target.value)}
           >
             <option value="">Todas</option>
-            <option value="sale">Venda</option>
-            <option value="rent">Aluguel</option>
+            {cidades.map(cidade => (
+              <option key={cidade} value={cidade}>{cidade}</option>
+            ))}
           </select>
         </div>
 
         <div className="filter-group">
-          <label htmlFor="bedrooms">Mín. Quartos</label>
+          <label htmlFor="bairro">Bairro</label>
+          <Autocomplete 
+            onLocationSelect={handleLocationSelect}
+            placeholder="Digite o bairro..."
+            value={filters.bairro}
+          />
+        </div>
+
+        <div className="filter-group">
+          <label htmlFor="quartos">Mín. Quartos</label>
           <select 
-            id="bedrooms"
-            name="bedrooms" 
-            value={filters.bedrooms} 
-            onChange={handleFilterChange}
+            id="quartos"
+            name="quartos" 
+            value={filters.quartos} 
+            onChange={(e) => handleFilterChange('quartos', e.target.value)}
           >
             <option value="">Qualquer</option>
             <option value="1">1+ quarto</option>
@@ -131,38 +116,46 @@ const SearchFilters = ({ onFilter }) => {
           </select>
         </div>
 
-        {/* ✅ Novo campo de localização com autocomplete */}
         <div className="filter-group">
-          <label htmlFor="location">Bairro ou Cidade</label>
-          <Autocomplete 
-            onLocationSelect={handleLocationSelect}
-            placeholder="Digite o bairro..."
-          />
+          <label htmlFor="preco_max">Preço Máx.</label>
+          <select 
+            id="preco_max"
+            name="preco_max" 
+            value={filters.preco_max} 
+            onChange={(e) => handleFilterChange('preco_max', e.target.value)}
+          >
+            <option value="">Sem limite</option>
+            <option value="200000">Até R$ 200.000</option>
+            <option value="500000">Até R$ 500.000</option>
+            <option value="1000000">Até R$ 1.000.000</option>
+            <option value="2000000">Até R$ 2.000.000</option>
+          </select>
         </div>
 
         <div className="filter-group">
-          <label htmlFor="minPrice">Preço Mín.</label>
-          <input
-            id="minPrice"
-            type="number"
-            name="minPrice"
-            placeholder="R$ 0"
-            value={filters.minPrice}
-            onChange={handleFilterChange}
-          />
+          <label htmlFor="tipo_negocio">Tipo de Negócio</label>
+          <select 
+            id="tipo_negocio"
+            name="tipo_negocio" 
+            value={filters.tipo_negocio} 
+            onChange={(e) => handleFilterChange('tipo_negocio', e.target.value)}
+          >
+            <option value="">Todos</option>
+            <option value="venda">Venda</option>
+            <option value="aluguel">Aluguel</option>
+          </select>
         </div>
+      </div>
 
-        <div className="filter-group">
-          <label htmlFor="maxPrice">Preço Máx.</label>
-          <input
-            id="maxPrice"
-            type="number"
-            name="maxPrice"
-            placeholder="R$ 0"
-            value={filters.maxPrice}
-            onChange={handleFilterChange}
-          />
-        </div>
+      {/* Botão de Busca */}
+      <div className="filter-actions">
+        <button 
+          onClick={handleSearch}
+          className="search-button"
+          disabled={loading}
+        >
+          {loading ? '⏳ Buscando...' : '🔍 Buscar Imóveis'}
+        </button>
       </div>
     </div>
   )

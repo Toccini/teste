@@ -63,7 +63,7 @@ const Header = () => {
 
         <div className="header-actions">
           <Link to="/login" className="login-btn">
-            Área do Corretor
+            Login
           </Link>
           <button 
             className="menu-toggle"
